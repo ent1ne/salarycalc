@@ -17,7 +17,7 @@ export const SalaryCalculator: React.FC = () => {
     const results = useMemo(() => calculateSalary(input), [input]);
 
     return (
-        <div className="container" style={{ maxWidth: '1000px', margin: '0 auto', paddingBottom: '4rem' }}>
+        <div className="container" style={{ width: '800px', maxWidth: '100%', margin: '0 auto', paddingBottom: '4rem' }}>
             <h1>Salary Calculator</h1>
 
             <InputForm values={input} onChange={setInput} />
