@@ -1,20 +1,23 @@
-export enum Period {
-    Hour = 'Hour',
-    Day = 'Day',
-    Week = 'Week',
-    Month = 'Month',
-    Year = 'Year',
-}
+export const Period = {
+    Hour: 'Hour',
+    Day: 'Day',
+    Week: 'Week',
+    Month: 'Month',
+    Year: 'Year',
+} as const;
+export type Period = typeof Period[keyof typeof Period];
 
-export enum Currency {
-    EUR = 'EUR',
-    USD = 'USD',
-}
+export const Currency = {
+    EUR: 'EUR',
+    USD: 'USD',
+} as const;
+export type Currency = typeof Currency[keyof typeof Currency];
 
-export enum SalaryType {
-    Gross = 'Gross',
-    Net = 'Net',
-}
+export const SalaryType = {
+    Gross: 'Gross',
+    Net: 'Net',
+} as const;
+export type SalaryType = typeof SalaryType[keyof typeof SalaryType];
 
 export interface SalaryInput {
     amount: number;

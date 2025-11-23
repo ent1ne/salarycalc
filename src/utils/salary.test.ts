@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { calculateSalary, SalaryInput, Period, Currency, SalaryType } from './salary';
+import { calculateSalary, type SalaryInput, Period, Currency, SalaryType } from './salary';
 
 describe('calculateSalary', () => {
     const baseInput: SalaryInput = {
