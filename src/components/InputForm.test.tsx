@@ -17,7 +17,7 @@ describe('InputForm', () => {
         render(<InputForm values={defaultValues} onChange={() => { }} />);
         expect(screen.getByText('Currency')).toBeInTheDocument();
         expect(screen.getByText('Period')).toBeInTheDocument();
-        expect(screen.getByText('Type')).toBeInTheDocument();
+        expect(screen.getByText('Salary Type')).toBeInTheDocument();
         expect(screen.getByText('Amount')).toBeInTheDocument();
     });
 

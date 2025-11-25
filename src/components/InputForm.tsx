@@ -1,5 +1,6 @@
 import React from 'react';
 import { Currency, Period, SalaryType, type SalaryInput } from '../utils/salary';
+import { Tooltip } from './Tooltip';
 
 interface InputFormProps {
     values: SalaryInput;
@@ -45,7 +46,10 @@ export const InputForm: React.FC<InputFormProps> = ({ values, onChange }) => {
                     </div>
                 </div>
                 <div>
-                    <label>Type</label>
+                    <label style={{ display: 'flex', alignItems: 'center' }}>
+                        Salary Type
+                        <Tooltip text="Your current salary: Gross means before taxes, Net — after taxes" />
+                    </label>
                     <div className="segmented-control">
                         {Object.values(SalaryType).map((t) => (
                             <div
@@ -96,7 +100,10 @@ export const InputForm: React.FC<InputFormProps> = ({ values, onChange }) => {
                 </div>
 
                 <div className="form-group">
-                    <label>Tax Rate (%)</label>
+                    <label style={{ display: 'flex', alignItems: 'center' }}>
+                        Tax Rate %
+                        <Tooltip text="Your current tax rate for Gross salary" />
+                    </label>
                     <input
                         type="number"
                         value={values.taxRate}
@@ -110,7 +117,10 @@ export const InputForm: React.FC<InputFormProps> = ({ values, onChange }) => {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                 <div className="form-group">
-                    <label>Min Desired Raise (%)</label>
+                    <label style={{ display: 'flex', alignItems: 'center' }}>
+                        Min Desired Raise %
+                        <Tooltip text="Your minimum acceptable raise percent to consider the offer" />
+                    </label>
                     <input
                         type="number"
                         value={values.minRaise || ''}
@@ -121,7 +131,10 @@ export const InputForm: React.FC<InputFormProps> = ({ values, onChange }) => {
                 </div>
 
                 <div className="form-group">
-                    <label>Comfortable Raise (%)</label>
+                    <label style={{ display: 'flex', alignItems: 'center' }}>
+                        Comfortable Raise %
+                        <Tooltip text="Raise percent that will make the offer highly interesting" />
+                    </label>
                     <input
                         type="number"
                         value={values.comfortableRaise || ''}
