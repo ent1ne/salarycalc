@@ -16,7 +16,7 @@ export const InputForm: React.FC<InputFormProps> = ({ values, onChange }) => {
 
     return (
         <div className="glass-card">
-            <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '1rem' }}>
+            <div className="form-group grid-sidebar">
                 <div>
                     <label>Currency</label>
                     <div className="custom-select-container">
@@ -87,7 +87,7 @@ export const InputForm: React.FC<InputFormProps> = ({ values, onChange }) => {
                 </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div className="grid-2-cols">
                 <div className="form-group">
                     <label>Amount</label>
                     <input
@@ -115,7 +115,7 @@ export const InputForm: React.FC<InputFormProps> = ({ values, onChange }) => {
                 </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div className="grid-2-cols">
                 <div className="form-group">
                     <label style={{ display: 'flex', alignItems: 'center' }}>
                         Min Desired Raise %

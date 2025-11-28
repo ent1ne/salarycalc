@@ -21,7 +21,7 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({ title, rates }) => {
     return (
         <div className="glass-card" style={{ marginTop: '2rem' }}>
             <h2 style={{ marginBottom: '1rem', color: 'var(--accent-secondary)' }}>{title}</h2>
-            <div style={{ overflowX: 'auto' }}>
+            <div style={{ display: 'grid', width: '100%', overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead>
                         <tr style={{ borderBottom: '1px solid var(--glass-border)' }}>
