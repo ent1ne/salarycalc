@@ -7,11 +7,55 @@ interface InputFormProps {
     onChange: (values: SalaryInput) => void;
 }
 
+// Helper for amount validation
+const isValidAmount = (value: string) => {
+    if (value === '') return true;
+    if (value.endsWith('.')) {
+        const parts = value.split('.');
+        return parts.length === 2 && /^\d*$/.test(parts[0]);
+    }
+    return /^\d+(\.\d{0,2})?$/.test(value);
+};
+
 export const InputForm: React.FC<InputFormProps> = ({ values, onChange }) => {
     const [isCurrencyOpen, setIsCurrencyOpen] = React.useState(false);
+    // Local state for the amount input to handle string formatting (e.g., "12.")
+    const [displayAmount, setDisplayAmount] = React.useState<string>(values.amount?.toString() ?? '');
+
+    // Effect to sync local displayAmount with parent's values.amount
+    React.useEffect(() => {
+        // Only update if the parsed number from displayAmount is different from values.amount
+        // This prevents overwriting "12." with "12" if values.amount is 12
+        const currentParsedAmount = parseFloat(displayAmount);
+        if (values.amount !== currentParsedAmount && !(isNaN(currentParsedAmount) && values.amount === undefined)) {
+            setDisplayAmount(values.amount?.toString() ?? '');
+        }
+    }, [values.amount]); // Only re-run if values.amount changes
 
     const handleChange = (field: keyof SalaryInput, value: any) => {
         onChange({ ...values, [field]: value });
+    };
+
+    // Internal handler for Amount to manage text input behavior
+    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let val = e.target.value;
+
+        // 1. Replace comma with dot for consistency
+        val = val.replace(',', '.');
+
+        // 2. Validate
+        if (isValidAmount(val)) {
+            setDisplayAmount(val); // Update local display state immediately
+
+            // If the value is a complete number (not just "12."), update the parent state
+            if (val === '') {
+                handleChange('amount', undefined);
+            } else if (/^\d+(\.\d{0,2})?$/.test(val)) { // Check if it's a fully formed number
+                handleChange('amount', Number(val));
+            }
+            // If it's a "typing state" like "12.", we only update local state,
+            // the parent's `amount` will retain its previous valid number or undefined.
+        }
     };
 
     return (
@@ -89,13 +133,15 @@ export const InputForm: React.FC<InputFormProps> = ({ values, onChange }) => {
 
             <div className="grid-2-cols">
                 <div className="form-group">
-                    <label>Amount</label>
+                    <label htmlFor="amount">Amount</label>
                     <input
-                        type="number"
-                        value={values.amount}
-                        onChange={(e) => handleChange('amount', Number(e.target.value))}
+                        id="amount"
+                        type="text"
+                        inputMode="decimal"
+                        value={displayAmount}
+                        onChange={handleAmountChange}
                         onWheel={(e) => e.currentTarget.blur()}
-                        min="0"
+                        autoComplete="off"
                     />
                 </div>
 

@@ -20,7 +20,7 @@ export const SalaryType = {
 export type SalaryType = typeof SalaryType[keyof typeof SalaryType];
 
 export interface SalaryInput {
-    amount: number;
+    amount: number | undefined;
     currency: Currency;
     period: Period;
     type: SalaryType;
@@ -112,9 +112,11 @@ const generateCurrencyRates = (hourlyNetEur: number, hourlyGrossEur: number): Cu
 
 export const calculateSalary = (input: SalaryInput): SalaryResult => {
     // 1. Normalize to EUR
-    let amountInEur = input.amount;
+    const safeAmount = input.amount || 0;
+
+    let amountInEur = safeAmount;
     if (input.currency === Currency.USD) {
-        amountInEur = input.amount / EUR_TO_USD_RATE;
+        amountInEur = safeAmount / EUR_TO_USD_RATE;
     }
 
     // 2. Convert to Hourly
